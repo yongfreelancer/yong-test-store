@@ -68,26 +68,37 @@
     }
 
     #shopify-section-{{ section.id }} .lookbook__description {
-      width:100%;
+      width: 100%;
       margin: 0 auto;
       color: {{ section.settings.text_color }};
       font-size: {{ section.settings.description_size }}px;
       line-height: 1.6;
-    }
-
-    #shopify-section-{{ section.id }} .lookbook__description {
-      margin: 0;
-    }
-
-    #shopify-section-{{ section.id }} .lookbook__description {
       text-align: {{ section.settings.text_alignment }};
+    }
+
+    #shopify-section-{{ section.id }} .lookbook__product-title {
+      color: {{ section.settings.product_title_color }};
+      font-size: {{ section.settings.product_title_size }}px;
+      font-weight: {{ section.settings.product_title_weight }};
+      text-transform: {{ section.settings.product_title_case }};
+    }
+
+    #shopify-section-{{ section.id }} .lookbook__product-price {
+      color: {{ section.settings.product_price_color }};
+      font-size: {{ section.settings.product_price_size }}px;
+      font-weight: {{ section.settings.product_price_weight }};
+      text-transform: {{ section.settings.product_price_case }};
+    }
+
+    #shopify-section-{{ section.id }} .lookbook__product-compare-at {
+      color: {{ section.settings.product_compare_at_color }};
     }
   {% endstyle %}
 {% schema %}
 {
   "name": "Lookbook (product page)",
   "settings": [
-       {
+    {
       "type": "select",
       "id": "text_alignment",
       "label": "Text alignment",
@@ -159,6 +170,94 @@
       "id": "text_color",
       "label": "Description color",
       "default": "#444444"
+    },
+    {
+      "type": "header",
+      "content": "Product Text Customization"
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Product title color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "product_title_size",
+      "label": "Product title size",
+      "min": 10,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "product_title_weight",
+      "label": "Product title weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "product_title_case",
+      "label": "Product title case",
+      "options": [
+        { "value": "none", "label": "Default" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "color",
+      "id": "product_price_color",
+      "label": "Product price color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "product_price_size",
+      "label": "Product price size",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "product_price_weight",
+      "label": "Product price weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select",
+      "id": "product_price_case",
+      "label": "Product price case",
+      "options": [
+        { "value": "none", "label": "Default" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "color",
+      "id": "product_compare_at_color",
+      "label": "Compare at price color",
+      "default": "#888888"
     }
   ],
   "presets": [

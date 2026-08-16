@@ -155,7 +155,7 @@ function LookbookSection({ lookbook }) {
             <div className="lookbook__header">
                 {lookbook.title && (
                     <h2 className="lookbook__title">
-                        {lookbook.title}
+                        Lookbook: {lookbook.title}
                     </h2>
                 )}
 
@@ -301,9 +301,9 @@ function LookbookProduct({ product }) {
                     href={`/products/${product.handle}`}
                     className="lookbook__product-link"
                 >
-                    <p className="lookbook__product-title">
+                    <h3 className="lookbook__product-title">
                         {product.title}
-                    </p>
+                    </h3>
                 </a>
 
                 <p className="lookbook__product-price">
