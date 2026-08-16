@@ -6,6 +6,46 @@
   width: 100%;
 }
 
+/* =========================================
+   LOADING STATE
+========================================= */
+
+.lookbook--loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.lookbook__loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.lookbook__spinner {
+  width: 48px;
+  height: 48px;
+  animation: lookbook-spin 1s linear infinite;
+}
+
+@keyframes lookbook-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.lookbook__spinner-text {
+  font-size: 14px;
+  color: #888;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
 .lookbook__section {
   position: relative;
   width: 100%;

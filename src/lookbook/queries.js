@@ -36,7 +36,7 @@ const PRODUCT_FRAGMENT = `
       url
       altText
     }
-    images(first: 10) {
+    images(first: 5) {
       edges {
         node {
           id

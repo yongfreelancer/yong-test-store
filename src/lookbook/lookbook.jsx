@@ -87,7 +87,30 @@ export function Lookbook({ config }) {
     if (status === "loading") {
         return (
             <div className="lookbook lookbook--loading section section--page-width">
-                Loading lookbook…
+                <div className="lookbook__loader">
+                    <svg
+                        className="lookbook__spinner"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            opacity="0.25"
+                        />
+                        <path
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                    </svg>
+                    <span className="lookbook__spinner-text">
+                        Loading lookbook…
+                    </span>
+                </div>
             </div>
         );
     }
@@ -95,7 +118,12 @@ export function Lookbook({ config }) {
     if (status === "error") {
         return (
             <div className="lookbook lookbook--error section section--page-width">
-                Couldn't load lookbook: {error}
+                <div className="lookbook__loader">
+                    <span style={{ fontSize: "24px" }}>⚠️</span>
+                    <span className="lookbook__spinner-text">
+                        Couldn't load lookbook: {error}
+                    </span>
+                </div>
             </div>
         );
     }
@@ -283,11 +311,18 @@ function LookbookProduct({ product }) {
                             }`}
                     >
                         <img
-                            src={image.url}
+                            src={buildOptimizedImageUrl(image.url, 640)}
+                            srcSet={buildImageSrcSet(image.url)}
+                            sizes="(max-width: 767px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             alt={
                                 image.altText ||
                                 product.title
                             }
+                            width={image.width || 800}
+                            height={image.height || 1000}
+                            loading="lazy"
+                            decoding="async"
+                            fetchPriority="low"
                         />
                     </div>
                 ))}
@@ -371,3 +406,22 @@ function formatMoney({
         }
     ).format(amount);
 }
+
+function buildOptimizedImageUrl(url, width) {
+    if (!url) return url;
+
+    const separator = url.includes("?") ? "&" : "?";
+
+    return `${url}${separator}width=${width}`;
+}
+
+function buildImageSrcSet(url) {
+    if (!url) return "";
+
+    const widths = [320, 480, 640, 800, 960, 1200, 1600];
+
+    return widths
+        .map((width) => `${buildOptimizedImageUrl(url, width)} ${width}w`)
+        .join(", ");
+}
+
