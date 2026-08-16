@@ -1,0 +1,62 @@
+{% comment %}
+  sections/lookbook-product.liquid
+
+  No merchant picker here (that's the spec requirement) — this section
+  works out on its own which lookbook(s) contain the current product,
+  and shows at most two if the product is in three or more.
+{% endcomment %}
+
+{% assign matched_handles = '' %}
+{% assign matched_count = 0 %}
+
+{% comment %}
+  metaobjects.lookbook.values loops every published "lookbook" metaobject
+  entry in the store. On a real catalog you'd want this list cached
+  (e.g. via a scheduled Liquid-to-JSON export or a smaller number of
+  lookbooks) rather than looped on every product page load, but this is
+  the correct native approach for the assessment's scope.
+{% endcomment %}
+{% for lookbook in metaobjects.lookbook.values %}
+  {% comment %}
+    lookbook.products is the "products" field (list.single_line_text_field
+    — a plain list of handles, per the brief's "handles only" requirement).
+    .value unwraps the field into a real array of strings so `contains`
+    can check membership.
+  {% endcomment %}
+  {% if lookbook.products.value contains product.handle %}
+    {% if matched_count < 2 %}
+      {% comment %} lookbook.system.handle, not lookbook.handle — handle
+           lives under .system, same reason as in lookbook-home.liquid {% endcomment %}
+      {% assign matched_handles = matched_handles | append: lookbook.system.handle | append: ',' %}
+      {% assign matched_count = matched_count | plus: 1 %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% assign matched_handles = matched_handles | split: ',' %}
+
+{% if matched_handles.size > 0 %}
+  <div
+    data-lookbook-root
+    data-lookbook-handles="{{ matched_handles | json | escape }}"
+    data-shop-domain="{{ shop.permanent_domain }}"
+    data-storefront-token="{{ settings.storefront_api_token }}"
+    data-api-version="2025-01"
+    data-country="{{ localization.country.iso_code }}"
+  ></div>
+
+  {{ 'lookbook-bundle.css' | asset_url | stylesheet_tag }}
+  {{ 'lookbook-bundle.js' | asset_url | script_tag }}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Lookbook (product page)",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Lookbook (product page)"
+    }
+  ]
+}
+{% endschema %}

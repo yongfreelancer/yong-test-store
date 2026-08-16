@@ -1,0 +1,54 @@
+{% comment %}
+  sections/lookbook-home.liquid
+
+  Homepage version. The merchant explicitly picks ONE lookbook via the
+  native `metaobject` setting type (see the schema below) — Shopify
+  renders a built-in resource picker for that, no custom admin UI needed.
+{% endcomment %}
+
+{% if section.settings.lookbook %}
+  {% comment %}
+    React always expects the same shape: an array of handles. This
+    section only ever has one, so we wrap it in a single-item array by
+    splitting on a comma that will never be found in a handle. That
+    keeps this section and lookbook-product.liquid feeding identical
+    data shapes into the same React bundle.
+
+    NOTE: a metaobject's handle/id/type/url live under .system, not at
+    the top level (that's how Shopify avoids clashing with a field
+    that happens to be named "handle" or "id"). So this is
+    .system.handle, not .handle.
+  {% endcomment %}
+  {% assign handle_list = section.settings.lookbook.system.handle | split: ',' %}
+
+  <div
+    data-lookbook-root
+    data-lookbook-handles="{{ handle_list | json | escape }}"
+    data-shop-domain="{{ shop.permanent_domain }}"
+    data-storefront-token="{{ settings.storefront_api_token }}"
+    data-api-version="2025-01"
+    data-country="{{ localization.country.iso_code }}"
+  ></div>
+
+  {{ 'lookbook-bundle.css' | asset_url | stylesheet_tag }}
+  {{ 'lookbook-bundle.js' | asset_url | script_tag }}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Lookbook",
+  "settings": [
+    {
+      "type": "metaobject",
+      "id": "lookbook",
+      "label": "Lookbook",
+      "metaobject_type": "lookbook"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lookbook"
+    }
+  ]
+}
+{% endschema %}
