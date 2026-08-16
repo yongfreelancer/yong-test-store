@@ -402,7 +402,7 @@
       "type": "lookbook-home",
       "name": "Lookbook",
       "settings": {
-        "lookbook": "homepage-lookbook",
+        "lookbook": "street-style-moment",
         "text_alignment": "center",
         "heading_size": 36,
         "description_size": 16,
