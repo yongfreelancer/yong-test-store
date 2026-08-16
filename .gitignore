@@ -36,6 +36,9 @@ coverage/
 *.tmp
 *.log
 
+# Shopify theme settings with sensitive API tokens
+config/settings_data.json
+
 # Optional: if you do not want compiled bundles committed
 # assets/*.js
 # assets/*.css
