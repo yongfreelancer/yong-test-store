@@ -99,7 +99,7 @@
         "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
         "gap": 25,
-        "section_width": "page-width",
+        "section_width": "full-width",
         "section_height": "large",
         "section_height_custom": 50,
         "background_media": "image",
@@ -118,6 +118,21 @@
         "border_radius": 0,
         "padding-block-start": 48,
         "padding-block-end": 48
+      }
+    },
+    "divider_CFVEBi": {
+      "type": "divider",
+      "name": "t:names.divider_section",
+      "settings": {
+        "background_color": "",
+        "divider_color": "",
+        "section_width": "full-width",
+        "thickness": 1,
+        "corner_radius": "square",
+        "width_percent": 100,
+        "alignment_horizontal": "center",
+        "padding-block-start": 16,
+        "padding-block-end": 16
       }
     },
     "product_list_fa6P9H": {
@@ -410,6 +425,7 @@
   },
   "order": [
     "section_nBKMit",
+    "divider_CFVEBi",
     "product_list_fa6P9H",
     "lookbook_home_K7cY8h"
   ]
