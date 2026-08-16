@@ -39,3 +39,4 @@ coverage/
 # Optional: if you do not want compiled bundles committed
 # assets/*.js
 # assets/*.css
+.DS_Store
